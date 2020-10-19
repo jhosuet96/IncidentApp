@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using IncidentApp.Model;
+using IncidentApp.Repository.GenericRepository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace InsidentApp
 {
@@ -25,10 +22,27 @@ namespace InsidentApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            //Importante 1
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                   name: "AllowOrigin",
+                   builder => {
+                       builder.AllowAnyOrigin()
+                      .AllowAnyMethod().AllowAnyMethod()
+                      .AllowAnyHeader().WithOrigins("http://localhost:4200");
+                   });
+            });
+
+            services.AddDbContext<IncidentAppContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("IncidentApp")));
+
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline. https://localhost:44368
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
