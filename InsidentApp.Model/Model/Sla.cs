@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IncidentApp.Model
+namespace IncidentApp.Model.Model
 {
     public class Sla
     {

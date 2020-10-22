@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IncidentApp.Model
+namespace IncidentApp.Model.Model
 {
     public class Usuario
     {
@@ -24,5 +24,9 @@ namespace IncidentApp.Model
         public int ModificadoPor { get; set; }
         //public virtual Usuario User { get; set; }
         public virtual Puesto Puesto { get; set; }
+        public ICollection<Departamento> Departamentos { get; set; }
+
+       //public ICollection<Puesto> Puestos { get; set; }
+
     }
 }

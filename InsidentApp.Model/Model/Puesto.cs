@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IncidentApp.Model
+namespace IncidentApp.Model.Model
 {
-    public class Prioridad
+    public class Puesto
     {
-        public int PrioridadId  { get; set; }
-        public int SlaId { get; set; }
+        public int PuestoId { get; set; }
+        public int DepartamentoId { get; set; }
         public string Nombre { get; set; }
         public string Estatus { get; set; }
         public bool Borrado { get; set; }
@@ -15,6 +15,9 @@ namespace IncidentApp.Model
         public DateTime FechaModificacion { get; set; }
         public int CreadoPor { get; set; }
         public int ModificadoPor { get; set; }
-        public virtual Sla Sla { get; set; }
+
+        public ICollection<Usuario> Usuarios { get; set; }
+
+        public virtual Departamento Departamento { get; set; }
     }
 }
