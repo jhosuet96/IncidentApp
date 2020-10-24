@@ -23,10 +23,13 @@ namespace IncidentApp.Model.Model
         public int CreadoPor { get; set; }
         public int ModificadoPor { get; set; }
         //public virtual Usuario User { get; set; }
+
         public virtual Puesto Puesto { get; set; }
         public ICollection<Departamento> Departamentos { get; set; }
-
-       //public ICollection<Puesto> Puestos { get; set; }
-
+        public ICollection<HistorialIncidente> HistorialIncidentes { get; set; }
+        public ICollection<Incidente> Incidentes { get; set; }
+        public ICollection<Prioridad> Prioridades { get; set; }
+        public ICollection<Puesto> Puestos { get; set; }
+        public ICollection<Sla> Slas { get; set; }
     }
 }

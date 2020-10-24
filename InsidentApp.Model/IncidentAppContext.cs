@@ -32,11 +32,11 @@ namespace IncidentApp.Model
                 entity.Property<int>(e => e.CreadoPor).IsRequired();
                 entity.Property<int>(e => e.ModificadoPor).IsRequired();
 
-                entity.HasOne(x => x.Usuario).WithOne().HasForeignKey<Departamento>(d => d.CreadoPor)
-                .HasForeignKey<Departamento>(d => d.ModificadoPor); 
+                //entity.HasOne<Usuario>(x => x.Usuario).WithMany(u=>u.Departamentos).HasForeignKey(d => d.CreadoPor)
+                //.HasForeignKey(d => d.ModificadoPor); 
 
+                
             });
-
 
             modelBuilder.Entity<Usuario>(entity =>
             {
@@ -58,9 +58,31 @@ namespace IncidentApp.Model
                 entity.Property<int>(e => e.CreadoPor).IsRequired();
                 entity.Property<int>(e => e.ModificadoPor).IsRequired();
 
-                entity.HasOne<Puesto>(p => p.Puesto).WithMany(p => p.Usuarios).HasForeignKey(p=> p.PuestoId);
+                entity.HasOne<Puesto>(u => u.Puesto).WithMany(p => p.Usuarios)
+                        .HasForeignKey(u => u.PuestoId);
+
+                entity.HasMany(x=>x.Departamentos).WithOne(u => u.Usuario)
+                        .HasForeignKey(u=>u.CreadoPor).IsRequired(false)
+                        .HasForeignKey(u=>u.ModificadoPor).OnDelete(DeleteBehavior.NoAction);
 
 
+                entity.HasMany(x => x.HistorialIncidentes).WithOne(u => u.Usuario)
+                        .HasForeignKey(u => u.CreadoPor).IsRequired(false)
+                        .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction);
+
+                entity.HasMany(x => x.Incidentes).WithOne(u => u.Usuario)
+                        .HasForeignKey(u => u.CreadoPor).IsRequired(false)
+                        .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction);
+
+
+                entity.HasMany(x => x.Prioridades).WithOne(u => u.Usuario)
+                        .HasForeignKey(u => u.CreadoPor).IsRequired(false)
+                        .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction);
+
+
+                entity.HasMany(x => x.Puesto).WithOne(u => u.Usuario)
+                        .HasForeignKey(u => u.CreadoPor).IsRequired(false)
+                        .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<Puesto>(entity =>
@@ -76,8 +98,7 @@ namespace IncidentApp.Model
                 entity.Property<int>(e => e.CreadoPor).IsRequired();
                 entity.Property<int>(e => e.ModificadoPor).IsRequired();
 
-                entity.HasOne(x => x.Departamento).WithOne().HasForeignKey<Puesto>(d => d.CreadoPor)
-                .HasForeignKey<Puesto>(d => d.ModificadoPor);
+                entity.HasOne<Departamento>(p => p.Departamento).WithMany(d => d.Puestos).HasForeignKey(p => p.DepartamentoId);
             });
         }
 
