@@ -1,5 +1,5 @@
 ﻿using AppNominas.Repository;
-using IncidentApp.Model;
+using IncidentApp.Model.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;

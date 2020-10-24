@@ -25,7 +25,9 @@ namespace IncidentApp.Model.Model
         //public virtual Usuario User { get; set; }
 
         public virtual Puesto Puesto { get; set; }
-        public ICollection<Departamento> Departamentos { get; set; }
+        public ICollection<Departamento> DepartamentosC { get; set; }
+        public ICollection<Departamento> DepartamentosM{ get; set; }
+
         public ICollection<HistorialIncidente> HistorialIncidentes { get; set; }
         public ICollection<Incidente> Incidentes { get; set; }
         public ICollection<Prioridad> Prioridades { get; set; }
