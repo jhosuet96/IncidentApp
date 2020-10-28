@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IncidentApp.Model.Migrations
 {
     [DbContext(typeof(IncidentAppContext))]
-    [Migration("20201024051220_Agregando_Relacion_Usuario_Departamento")]
-    partial class Agregando_Relacion_Usuario_Departamento
+    [Migration("20201028043245_Config_FluentApi_Model01")]
+    partial class Config_FluentApi_Model01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,7 +47,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 24, 1, 12, 20, 595, DateTimeKind.Local).AddTicks(9525));
+                        .HasDefaultValue(new DateTime(2020, 10, 28, 0, 32, 45, 262, DateTimeKind.Local).AddTicks(3590));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -99,6 +99,8 @@ namespace IncidentApp.Model.Migrations
 
                     b.HasKey("HistorialIncidenteId");
 
+                    b.HasIndex("CreadoPor");
+
                     b.HasIndex("IncidenteId");
 
                     b.HasIndex("ModificadoPor");
@@ -114,10 +116,13 @@ namespace IncidentApp.Model.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Borrado")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("CoemntarioCierrre")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.Property<int>("CreadoPor")
                         .HasColumnType("int");
@@ -126,10 +131,12 @@ namespace IncidentApp.Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(max)");
 
                     b.Property<string>("Estatus")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(2)")
+                        .HasMaxLength(2);
 
                     b.Property<DateTime>("FechaCierre")
                         .HasColumnType("datetime2");
@@ -138,7 +145,9 @@ namespace IncidentApp.Model.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaRegistro")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 10, 28, 0, 32, 45, 329, DateTimeKind.Local).AddTicks(3727));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -147,7 +156,9 @@ namespace IncidentApp.Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Titulo")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
                     b.Property<int>("UsuarioAsignadoId")
                         .HasColumnType("int");
@@ -157,11 +168,17 @@ namespace IncidentApp.Model.Migrations
 
                     b.HasKey("IncidenteId");
 
+                    b.HasIndex("CreadoPor");
+
                     b.HasIndex("DepartamentoId");
 
                     b.HasIndex("ModificadoPor");
 
                     b.HasIndex("PrioridadId");
+
+                    b.HasIndex("UsuarioAsignadoId");
+
+                    b.HasIndex("UsuarioReportaId");
 
                     b.ToTable("Incidente");
                 });
@@ -174,30 +191,40 @@ namespace IncidentApp.Model.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Borrado")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<int>("CreadoPor")
                         .HasColumnType("int");
 
                     b.Property<string>("Estatus")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(2)")
+                        .HasMaxLength(2);
 
                     b.Property<DateTime>("FechaModificacion")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaRegistro")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 10, 28, 0, 32, 45, 326, DateTimeKind.Local).AddTicks(5543));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<int>("SlaId")
                         .HasColumnType("int");
 
                     b.HasKey("PrioridadId");
+
+                    b.HasIndex("CreadoPor");
 
                     b.HasIndex("ModificadoPor");
 
@@ -235,7 +262,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 24, 1, 12, 20, 623, DateTimeKind.Local).AddTicks(8250));
+                        .HasDefaultValue(new DateTime(2020, 10, 28, 0, 32, 45, 264, DateTimeKind.Local).AddTicks(8636));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -246,6 +273,8 @@ namespace IncidentApp.Model.Migrations
                         .HasMaxLength(100);
 
                     b.HasKey("PuestoId");
+
+                    b.HasIndex("CreadoPor");
 
                     b.HasIndex("DepartamentoId");
 
@@ -262,7 +291,9 @@ namespace IncidentApp.Model.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("Borrado")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<int>("CantdadHoras")
                         .HasColumnType("int");
@@ -271,26 +302,31 @@ namespace IncidentApp.Model.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Descripcion")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
 
                     b.Property<string>("Estatus")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(2)")
+                        .HasMaxLength(2);
 
                     b.Property<DateTime>("FechaModificacion")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FechaRegistro")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2020, 10, 28, 0, 32, 45, 325, DateTimeKind.Local).AddTicks(1508));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UsuarioId")
-                        .HasColumnType("int");
-
                     b.HasKey("SlaId");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("CreadoPor");
+
+                    b.HasIndex("ModificadoPor");
 
                     b.ToTable("Sla");
                 });
@@ -344,7 +380,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 24, 1, 12, 20, 601, DateTimeKind.Local).AddTicks(2754));
+                        .HasDefaultValue(new DateTime(2020, 10, 28, 0, 32, 45, 274, DateTimeKind.Local).AddTicks(1015));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -362,13 +398,24 @@ namespace IncidentApp.Model.Migrations
                     b.Property<int>("PuestoId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PuestoId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(15)")
                         .HasMaxLength(15);
 
                     b.HasKey("UsuarioId");
 
+                    b.HasIndex("CreadoPor");
+
+                    b.HasIndex("ModificadoPor");
+
                     b.HasIndex("PuestoId");
+
+                    b.HasIndex("PuestoId1")
+                        .IsUnique()
+                        .HasFilter("[PuestoId1] IS NOT NULL");
 
                     b.ToTable("Usuario");
                 });
@@ -388,80 +435,132 @@ namespace IncidentApp.Model.Migrations
 
             modelBuilder.Entity("IncidentApp.Model.Model.HistorialIncidente", b =>
                 {
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioC")
+                        .WithMany("HistorialIncidentesC")
+                        .HasForeignKey("CreadoPor");
+
                     b.HasOne("IncidentApp.Model.Model.Incidente", "Incidente")
                         .WithMany()
                         .HasForeignKey("IncidenteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IncidentApp.Model.Model.Usuario", "Usuario")
-                        .WithMany("HistorialIncidentes")
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
+                        .WithMany("HistorialIncidentesM")
                         .HasForeignKey("ModificadoPor")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IncidentApp.Model.Model.Incidente", b =>
                 {
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioC")
+                        .WithMany("IncidentesC")
+                        .HasForeignKey("CreadoPor");
+
                     b.HasOne("IncidentApp.Model.Model.Departamento", "Departamento")
-                        .WithMany()
+                        .WithMany("Incidentes")
                         .HasForeignKey("DepartamentoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("IncidentApp.Model.Model.Usuario", "Usuario")
-                        .WithMany("Incidentes")
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
+                        .WithMany("IncidentesM")
                         .HasForeignKey("ModificadoPor")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("IncidentApp.Model.Model.Prioridad", "Prioridad")
-                        .WithMany()
+                        .WithMany("Incidentes")
                         .HasForeignKey("PrioridadId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioA")
+                        .WithMany("IncidentesA")
+                        .HasForeignKey("UsuarioAsignadoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioR")
+                        .WithMany("IncidentesR")
+                        .HasForeignKey("UsuarioReportaId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("IncidentApp.Model.Model.Prioridad", b =>
                 {
-                    b.HasOne("IncidentApp.Model.Model.Usuario", "Usuario")
-                        .WithMany("Prioridades")
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioC")
+                        .WithMany("PrioridadesC")
+                        .HasForeignKey("CreadoPor");
+
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
+                        .WithMany("PrioridadesM")
                         .HasForeignKey("ModificadoPor")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("IncidentApp.Model.Model.Sla", "Sla")
-                        .WithMany()
+                        .WithMany("Prioridades")
                         .HasForeignKey("SlaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("IncidentApp.Model.Model.Puesto", b =>
                 {
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioC")
+                        .WithMany("PuestosC")
+                        .HasForeignKey("CreadoPor");
+
                     b.HasOne("IncidentApp.Model.Model.Departamento", "Departamento")
                         .WithMany("Puestos")
                         .HasForeignKey("DepartamentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("IncidentApp.Model.Model.Usuario", "Usuario")
-                        .WithMany("Puestos")
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
+                        .WithMany("PuestosM")
                         .HasForeignKey("ModificadoPor")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IncidentApp.Model.Model.Sla", b =>
                 {
-                    b.HasOne("IncidentApp.Model.Model.Usuario", "Usuario")
-                        .WithMany("Slas")
-                        .HasForeignKey("UsuarioId");
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioC")
+                        .WithMany("SlasC")
+                        .HasForeignKey("CreadoPor");
+
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
+                        .WithMany("SlasM")
+                        .HasForeignKey("ModificadoPor")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IncidentApp.Model.Model.Usuario", b =>
                 {
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioC")
+                        .WithMany("IUsuariosC")
+                        .HasForeignKey("CreadoPor");
+
+                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
+                        .WithMany("IUsuariosM")
+                        .HasForeignKey("ModificadoPor")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("IncidentApp.Model.Model.Puesto", "Puesto")
                         .WithMany("Usuarios")
                         .HasForeignKey("PuestoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("IncidentApp.Model.Model.Puesto", null)
+                        .WithOne("Usuario")
+                        .HasForeignKey("IncidentApp.Model.Model.Usuario", "PuestoId1");
                 });
 #pragma warning restore 612, 618
         }

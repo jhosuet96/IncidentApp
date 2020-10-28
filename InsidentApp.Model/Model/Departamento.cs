@@ -16,6 +16,8 @@ namespace IncidentApp.Model.Model
         public int ModificadoPor { get; set; }
 
         public ICollection<Puesto> Puestos { get; set; }
+        public ICollection<Incidente> Incidentes { get; set; }
+
         public Usuario UsuarioC { get; set; }
 
         public Usuario UsuarioM { get; set; }

@@ -20,5 +20,9 @@ namespace IncidentApp.Model.Model
         public ICollection<Usuario> Usuarios { get; set; }
 
         public virtual Departamento Departamento { get; set; }
+        public Usuario UsuarioC { get; set; }
+
+        public Usuario UsuarioM { get; set; }
+
     }
 }
