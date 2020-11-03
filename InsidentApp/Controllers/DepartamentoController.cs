@@ -18,13 +18,12 @@ namespace IncidentApp.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllActive")]
+        [Route("GetAllD")]
         //[EnableCors("AllowOrigin")] //Importante 3
         public IActionResult GetAll()
         {
             var departamento = _repo.departamento.GetAll();            
-            return Ok(new { departamento });
+            return Ok( departamento );
         }
-
     }
 }

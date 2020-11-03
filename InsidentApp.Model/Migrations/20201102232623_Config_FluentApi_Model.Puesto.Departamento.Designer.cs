@@ -4,14 +4,16 @@ using IncidentApp.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IncidentApp.Model.Migrations
 {
     [DbContext(typeof(IncidentAppContext))]
-    partial class IncidentAppContextModelSnapshot : ModelSnapshot
+    [Migration("20201102232623_Config_FluentApi_Model.Puesto.Departamento")]
+    partial class Config_FluentApi_ModelPuestoDepartamento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +47,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 37, 42, 706, DateTimeKind.Local).AddTicks(4923));
+                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 26, 23, 389, DateTimeKind.Local).AddTicks(1041));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -145,7 +147,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 37, 42, 764, DateTimeKind.Local).AddTicks(3985));
+                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 26, 23, 436, DateTimeKind.Local).AddTicks(3839));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -207,7 +209,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 37, 42, 761, DateTimeKind.Local).AddTicks(4742));
+                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 26, 23, 433, DateTimeKind.Local).AddTicks(4393));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -260,7 +262,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 37, 42, 709, DateTimeKind.Local).AddTicks(5264));
+                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 26, 23, 391, DateTimeKind.Local).AddTicks(8399));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -315,7 +317,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 37, 42, 760, DateTimeKind.Local).AddTicks(188));
+                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 26, 23, 431, DateTimeKind.Local).AddTicks(8698));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -378,7 +380,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 37, 42, 718, DateTimeKind.Local).AddTicks(166));
+                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 26, 23, 399, DateTimeKind.Local).AddTicks(1374));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -402,12 +404,6 @@ namespace IncidentApp.Model.Migrations
 
                     b.HasKey("UsuarioId");
 
-                    b.HasIndex("CreadoPor");
-
-                    b.HasIndex("ModificadoPor");
-
-                    b.HasIndex("PuestoID");
-
                     b.ToTable("Usuario");
                 });
 
@@ -420,7 +416,8 @@ namespace IncidentApp.Model.Migrations
                     b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
                         .WithMany("DepartamentosM")
                         .HasForeignKey("ModificadoPor")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IncidentApp.Model.Model.HistorialIncidente", b =>
@@ -438,7 +435,8 @@ namespace IncidentApp.Model.Migrations
                     b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
                         .WithMany("HistorialIncidentesM")
                         .HasForeignKey("ModificadoPor")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IncidentApp.Model.Model.Incidente", b =>
@@ -456,7 +454,8 @@ namespace IncidentApp.Model.Migrations
                     b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
                         .WithMany("IncidentesM")
                         .HasForeignKey("ModificadoPor")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("IncidentApp.Model.Model.Prioridad", "Prioridad")
                         .WithMany("Incidentes")
@@ -486,7 +485,8 @@ namespace IncidentApp.Model.Migrations
                     b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
                         .WithMany("PrioridadesM")
                         .HasForeignKey("ModificadoPor")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.HasOne("IncidentApp.Model.Model.Sla", "Sla")
                         .WithMany("Prioridades")
@@ -510,7 +510,8 @@ namespace IncidentApp.Model.Migrations
                     b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
                         .WithMany("PuestosM")
                         .HasForeignKey("ModificadoPor")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IncidentApp.Model.Model.Sla", b =>
@@ -522,24 +523,7 @@ namespace IncidentApp.Model.Migrations
                     b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
                         .WithMany("SlasM")
                         .HasForeignKey("ModificadoPor")
-                        .OnDelete(DeleteBehavior.NoAction);
-                });
-
-            modelBuilder.Entity("IncidentApp.Model.Model.Usuario", b =>
-                {
-                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioC")
-                        .WithMany("IUsuariosC")
-                        .HasForeignKey("CreadoPor");
-
-                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
-                        .WithMany("IUsuariosM")
-                        .HasForeignKey("ModificadoPor")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.HasOne("IncidentApp.Model.Model.Puesto", "Puesto")
-                        .WithMany("Usuarios")
-                        .HasForeignKey("PuestoID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

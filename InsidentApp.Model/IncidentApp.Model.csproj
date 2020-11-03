@@ -9,10 +9,21 @@
     <Compile Remove="Migrations\20201028031738_Config_FluentApi_Model.Designer.cs" />
     <Compile Remove="Migrations\20201028032536_Config_FluentApi_Model.cs" />
     <Compile Remove="Migrations\20201028032536_Config_FluentApi_Model.Designer.cs" />
+    <Compile Remove="Migrations\20201028033241_Config_FluentApi_Model.cs" />
+    <Compile Remove="Migrations\20201028033241_Config_FluentApi_Model.Designer.cs" />
+    <Compile Remove="Migrations\20201028043245_Config_FluentApi_Model01.cs" />
+    <Compile Remove="Migrations\20201028043245_Config_FluentApi_Model01.Designer.cs" />
+    <Compile Remove="Migrations\20201028052505_Config_FluentApi_Model_OnUpdateCascada.cs" />
+    <Compile Remove="Migrations\20201028052505_Config_FluentApi_Model_OnUpdateCascada.Designer.cs" />
+    <Compile Remove="Migrations\20201102230216_Config_FluentApi_Model_FKUpdate.cs" />
+    <Compile Remove="Migrations\20201102230216_Config_FluentApi_Model_FKUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20201102230850_Config_FluentApi_Model_FKUpdate.cs" />
+    <Compile Remove="Migrations\20201102230850_Config_FluentApi_Model_FKUpdate.Designer.cs" />
+    <Compile Remove="Migrations\20201102231407_Config_FluentApi_Model_FKUpdate.cs" />
+    <Compile Remove="Migrations\20201102231407_Config_FluentApi_Model_FKUpdate.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>

@@ -15,7 +15,7 @@ namespace IncidentApp.Model.Model
         public DateTime FechaModificacion { get; set; }
         public int CreadoPor { get; set; }
         public int ModificadoPor { get; set; }
-        public Usuario Usuario { get; set; }
+       // public Usuario Usuario { get; set; }
 
         public ICollection<Usuario> Usuarios { get; set; }
 

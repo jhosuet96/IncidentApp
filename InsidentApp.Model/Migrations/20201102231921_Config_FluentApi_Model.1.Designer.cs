@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IncidentApp.Model.Migrations
 {
     [DbContext(typeof(IncidentAppContext))]
-    [Migration("20201028043245_Config_FluentApi_Model01")]
-    partial class Config_FluentApi_Model01
+    [Migration("20201102231921_Config_FluentApi_Model.1")]
+    partial class Config_FluentApi_Model1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,7 +47,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 28, 0, 32, 45, 262, DateTimeKind.Local).AddTicks(3590));
+                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 19, 20, 954, DateTimeKind.Local).AddTicks(2376));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -147,7 +147,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 28, 0, 32, 45, 329, DateTimeKind.Local).AddTicks(3727));
+                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 19, 21, 1, DateTimeKind.Local).AddTicks(1213));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -209,7 +209,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 28, 0, 32, 45, 326, DateTimeKind.Local).AddTicks(5543));
+                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 19, 20, 996, DateTimeKind.Local).AddTicks(3311));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -262,7 +262,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 28, 0, 32, 45, 264, DateTimeKind.Local).AddTicks(8636));
+                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 19, 20, 956, DateTimeKind.Local).AddTicks(3206));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -275,8 +275,6 @@ namespace IncidentApp.Model.Migrations
                     b.HasKey("PuestoId");
 
                     b.HasIndex("CreadoPor");
-
-                    b.HasIndex("DepartamentoId");
 
                     b.HasIndex("ModificadoPor");
 
@@ -317,7 +315,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 28, 0, 32, 45, 325, DateTimeKind.Local).AddTicks(1508));
+                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 19, 20, 994, DateTimeKind.Local).AddTicks(3158));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -380,7 +378,7 @@ namespace IncidentApp.Model.Migrations
                     b.Property<DateTime>("FechaRegistro")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2020, 10, 28, 0, 32, 45, 274, DateTimeKind.Local).AddTicks(1015));
+                        .HasDefaultValue(new DateTime(2020, 11, 2, 19, 19, 20, 960, DateTimeKind.Local).AddTicks(8625));
 
                     b.Property<int>("ModificadoPor")
                         .HasColumnType("int");
@@ -395,10 +393,7 @@ namespace IncidentApp.Model.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<int>("PuestoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PuestoId1")
+                    b.Property<int>("PuestoID")
                         .HasColumnType("int");
 
                     b.Property<string>("Telefono")
@@ -406,16 +401,6 @@ namespace IncidentApp.Model.Migrations
                         .HasMaxLength(15);
 
                     b.HasKey("UsuarioId");
-
-                    b.HasIndex("CreadoPor");
-
-                    b.HasIndex("ModificadoPor");
-
-                    b.HasIndex("PuestoId");
-
-                    b.HasIndex("PuestoId1")
-                        .IsUnique()
-                        .HasFilter("[PuestoId1] IS NOT NULL");
 
                     b.ToTable("Usuario");
                 });
@@ -514,12 +499,6 @@ namespace IncidentApp.Model.Migrations
                         .WithMany("PuestosC")
                         .HasForeignKey("CreadoPor");
 
-                    b.HasOne("IncidentApp.Model.Model.Departamento", "Departamento")
-                        .WithMany("Puestos")
-                        .HasForeignKey("DepartamentoId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
                         .WithMany("PuestosM")
                         .HasForeignKey("ModificadoPor")
@@ -538,29 +517,6 @@ namespace IncidentApp.Model.Migrations
                         .HasForeignKey("ModificadoPor")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("IncidentApp.Model.Model.Usuario", b =>
-                {
-                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioC")
-                        .WithMany("IUsuariosC")
-                        .HasForeignKey("CreadoPor");
-
-                    b.HasOne("IncidentApp.Model.Model.Usuario", "UsuarioM")
-                        .WithMany("IUsuariosM")
-                        .HasForeignKey("ModificadoPor")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("IncidentApp.Model.Model.Puesto", "Puesto")
-                        .WithMany("Usuarios")
-                        .HasForeignKey("PuestoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IncidentApp.Model.Model.Puesto", null)
-                        .WithOne("Usuario")
-                        .HasForeignKey("IncidentApp.Model.Model.Usuario", "PuestoId1");
                 });
 #pragma warning restore 612, 618
         }

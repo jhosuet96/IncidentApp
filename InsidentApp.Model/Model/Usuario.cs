@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace IncidentApp.Model.Model
@@ -7,7 +8,7 @@ namespace IncidentApp.Model.Model
     public class Usuario
     {
         public int UsuarioId { get; set; }
-        public int PuestoId { get; set; }
+        public int PuestoID { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Cedula { get; set; }
@@ -23,7 +24,10 @@ namespace IncidentApp.Model.Model
         public int CreadoPor { get; set; }
         public int ModificadoPor { get; set; }
         public virtual Puesto Puesto { get; set; }
+
+        [NotMapped]
         public virtual Usuario UsuarioC { get; set; }
+        [NotMapped]
         public virtual Usuario UsuarioM { get; set; }
 
         //public virtual Incidente IncidenteA { get; set; }
@@ -46,6 +50,6 @@ namespace IncidentApp.Model.Model
 
         public ICollection<Usuario> IUsuariosC { get; set; }
         public ICollection<Usuario> IUsuariosM { get; set; }
-
+        
     }
 }

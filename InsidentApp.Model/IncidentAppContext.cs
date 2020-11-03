@@ -10,9 +10,7 @@ namespace IncidentApp.Model
     public class IncidentAppContext: DbContext
     {
       
-        public IncidentAppContext(DbContextOptions<IncidentAppContext> options) : base(options)
-        {
-        }
+        public IncidentAppContext(DbContextOptions<IncidentAppContext> options) : base(options){}
         public DbSet<Departamento> Departamento { get; set; }
         public DbSet<Puesto> Puesto { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
@@ -58,7 +56,7 @@ namespace IncidentApp.Model
             {
                 entity.HasKey(e => e.UsuarioId);
                 entity.Property<int>(e => e.UsuarioId);
-                entity.Property<int>(e => e.PuestoId);
+                entity.Property<int>(e => e.PuestoID);
                 entity.Property<string>(e => e.Nombre).HasMaxLength(100).IsRequired();
                 entity.Property<string>(e => e.Apellido).HasMaxLength(100).IsRequired();
                 entity.Property<string>(e => e.Cedula).HasMaxLength(11).IsRequired();
@@ -79,24 +77,24 @@ namespace IncidentApp.Model
                         .HasForeignKey(u => u.CreadoPor).IsRequired(false);
 
                 entity.HasMany(x => x.DepartamentosM).WithOne(u => u.UsuarioM)
-                .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
 
                 //Puesto foreignkey
                 entity.HasMany<Puesto>(u => u.PuestosC).WithOne(p => p.UsuarioC)
                         .HasForeignKey(u => u.CreadoPor).IsRequired(false);
 
                 entity.HasMany<Puesto>(u => u.PuestosM).WithOne(p => p.UsuarioM)
-                .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
 
                 entity.HasOne<Puesto>(u => u.Puesto).WithMany(p => p.Usuarios)
-                        .HasForeignKey(u => u.PuestoId);
+                        .HasForeignKey(u => u.PuestoID);
 
                 //HistorialIncidentes foreignkey
                 entity.HasMany<HistorialIncidente>(x => x.HistorialIncidentesC).WithOne(u => u.UsuarioC)
                         .HasForeignKey(u => u.CreadoPor).IsRequired(false);
 
                 entity.HasMany<HistorialIncidente>(x => x.HistorialIncidentesM).WithOne(u => u.UsuarioM)
-                        .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
 
 
                 //Incidentes foreignkey
@@ -104,7 +102,7 @@ namespace IncidentApp.Model
                         .HasForeignKey(u => u.CreadoPor).IsRequired(false);
 
                 entity.HasMany<Incidente>(x => x.IncidentesM).WithOne(u => u.UsuarioM)
-                        .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
 
                 entity.HasMany<Incidente>(x => x.IncidentesA).WithOne(u => u.UsuarioA)
                       .HasForeignKey(u => u.UsuarioAsignadoId).IsRequired();
@@ -118,7 +116,7 @@ namespace IncidentApp.Model
                        .HasForeignKey(u => u.CreadoPor).IsRequired(false);
 
                 entity.HasMany<Sla>(x => x.SlasM).WithOne(u => u.UsuarioM)
-                        .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
 
 
                 //Prioridades foreignkey
@@ -126,14 +124,14 @@ namespace IncidentApp.Model
                         .HasForeignKey(u => u.CreadoPor).IsRequired(false);
 
                 entity.HasMany<Prioridad>(x => x.PrioridadesM).WithOne(u => u.UsuarioM)
-                        .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
 
-                //Usuario foreignkey
+               // Usuario foreignkey
                 entity.HasMany<Usuario>(u=>u.IUsuariosC).WithOne(u=>u.UsuarioC)
                 .HasForeignKey(u => u.CreadoPor).IsRequired(false);
 
                 entity.HasMany<Usuario>(u => u.IUsuariosM).WithOne(u => u.UsuarioM)
-                .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(u => u.ModificadoPor).OnDelete(DeleteBehavior.NoAction).IsRequired(false);
 
             });
 
