@@ -19,11 +19,11 @@ namespace AppNominas.Repository
             _context.Set<T>().Add(entity);
         }
 
-        public void Delete(T entity)
+       /* public void Delete(T entity)
         {
             //var data = _context.Set<T>().Find(id);
             _context.Set<T>().Remove(entity);
-        }
+        }*/
 
         public void Update(T entity)
         {

@@ -13,7 +13,7 @@ namespace AppNominas.Repository
         IQueryable<T> GetAll();
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> predicate);
         void Add(T entity);
-        void Delete(T entity);
+        //void Delete(T entity);
         void Update(T entity);
     }
 }
