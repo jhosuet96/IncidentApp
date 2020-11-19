@@ -23,7 +23,15 @@ namespace IncidentApp.Model.Model
         public int ModificadoPor { get; set; }
         public virtual Prioridad Prioridad  { get; set; }
         public virtual Departamento Departamento  { get; set; }
-        public virtual Usuario Usuario  { get; set; }
+        //public ICollection<Usuario> UsuarioA { get; set; }
+        //public ICollection<Usuario> UsuarioR { get; set; }
+         public Usuario UsuarioA { get; set; }
+
+        public Usuario UsuarioR { get; set; }
+
+        public Usuario UsuarioC { get; set; }
+
+        public Usuario UsuarioM { get; set; }
 
     }
 }

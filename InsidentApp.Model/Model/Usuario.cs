@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace IncidentApp.Model.Model
@@ -7,7 +8,7 @@ namespace IncidentApp.Model.Model
     public class Usuario
     {
         public int UsuarioId { get; set; }
-        public int PuestoId { get; set; }
+        public int PuestoID { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Cedula { get; set; }
@@ -22,11 +23,33 @@ namespace IncidentApp.Model.Model
         public DateTime FechaModificacion { get; set; }
         public int CreadoPor { get; set; }
         public int ModificadoPor { get; set; }
-        //public virtual Usuario User { get; set; }
         public virtual Puesto Puesto { get; set; }
-        public ICollection<Departamento> Departamentos { get; set; }
 
-       //public ICollection<Puesto> Puestos { get; set; }
+        [NotMapped]
+        public virtual Usuario UsuarioC { get; set; }
+        [NotMapped]
+        public virtual Usuario UsuarioM { get; set; }
 
+        //public virtual Incidente IncidenteA { get; set; }
+        //public virtual Incidente IncidenteR { get; set; }
+
+        public ICollection<Departamento> DepartamentosC { get; set; }
+        public ICollection<Departamento> DepartamentosM { get; set; }
+        public ICollection<Puesto> PuestosC { get; set; }
+        public ICollection<Puesto> PuestosM { get; set; }
+        public ICollection<HistorialIncidente> HistorialIncidentesC { get; set; }
+        public ICollection<HistorialIncidente> HistorialIncidentesM { get; set; }
+        public ICollection<Incidente> IncidentesA { get; set; }
+        public ICollection<Incidente> IncidentesR { get; set; }
+        public ICollection<Incidente> IncidentesM { get; set; }
+        public ICollection<Incidente> IncidentesC { get; set; }
+        public ICollection<Sla> SlasC { get; set; }
+        public ICollection<Sla> SlasM { get; set; }
+        public ICollection<Prioridad> PrioridadesC { get; set; }
+        public ICollection<Prioridad> PrioridadesM { get; set; }
+
+        public ICollection<Usuario> IUsuariosC { get; set; }
+        public ICollection<Usuario> IUsuariosM { get; set; }
+        
     }
 }

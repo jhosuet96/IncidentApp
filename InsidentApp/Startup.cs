@@ -24,6 +24,11 @@ namespace InsidentApp
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
+            //services.AddDbContext<IncidentAppContext>(options =>
+            //{
+            //    options.UseSqlServer("Server=DESKTOP-2TE51VC;Database=IncidentApp;Trusted_Connection=True;MultipleActiveResultSets=true", b => b.MigrationsAssembly("InsidentApp"));
+            //});
+
             //Importante 1
             services.AddCors(options =>
             {

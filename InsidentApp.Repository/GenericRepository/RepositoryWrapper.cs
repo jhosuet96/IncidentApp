@@ -9,6 +9,7 @@ namespace IncidentApp.Repository.GenericRepository
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
+
         private IncidentAppContext _repoContext;
         private IDepartamentoRepository _departamento;
 
@@ -23,6 +24,11 @@ namespace IncidentApp.Repository.GenericRepository
         private ISlaRepository _sla;
 
         private IUsuarioRepository _usuario;
+
+        public RepositoryWrapper(IncidentAppContext repoContext)
+        {
+            _repoContext = repoContext;
+        }
 
         public IDepartamentoRepository departamento
         {

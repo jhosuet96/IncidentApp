@@ -17,6 +17,8 @@ namespace IncidentApp.Model.Model
         public int ModificadoPor { get; set; }
 
         public virtual Incidente Incidente { get; set; }
+        public Usuario UsuarioM { get; set; }
+        public Usuario UsuarioC{ get; set; }
 
     }
 }
