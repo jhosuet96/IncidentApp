@@ -84,11 +84,11 @@ namespace IncidentApp.Controllers
 
         [HttpDelete]
         [Route("DeletePrioridad/prioridadid/{prioridadid:int}/iduser/{iduser:int}")]
-        public IActionResult DeletePrioridad(int prioridadid, int idUser)
+        public IActionResult DeletePrioridad(int prioridadId, int idUser)
         {
-            if (prioridadid > 0)
+            if (prioridadId > 0)
             {
-                var isPrioridad = servicePrioridad.MapPrioridadDelete(prioridadid, idUser);
+                var isPrioridad = servicePrioridad.MapPrioridadDelete(prioridadId, idUser);
                 _repo.prioridad.Update(isPrioridad);
                 _repo.Save();
                 return Ok(isPrioridad);

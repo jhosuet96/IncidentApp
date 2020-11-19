@@ -5,11 +5,11 @@ using System;
 
 namespace IncidentApp.Service
 {
-    public class ServiceDepartment
+    public class ServiceDepartamento
     {
         Departamento _Departamento;
 
-        public ServiceDepartment()
+        public ServiceDepartamento()
         {
             _Departamento = new Departamento();
         }

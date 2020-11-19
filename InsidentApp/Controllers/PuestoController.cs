@@ -48,7 +48,7 @@ namespace IncidentApp.Controllers
         }
 
         [HttpPost]
-        
+        [Route("AddPuesto")]
         public IActionResult AddPuesto(Puesto puesto)
         {
             _repo.puesto.Add(puesto);

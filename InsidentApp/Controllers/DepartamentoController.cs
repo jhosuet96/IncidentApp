@@ -13,10 +13,10 @@ namespace IncidentApp.Controllers
     {
         private IRepositoryWrapper _repo;
        // Departamento _Departamento;
-        ServiceDepartment serviceDepartment;
+        ServiceDepartamento serviceDepartment;
         public DepartamentoController(IRepositoryWrapper repo)
         {
-            serviceDepartment = new ServiceDepartment();
+            serviceDepartment = new ServiceDepartamento();
            // _Departamento = new Departamento();
             _repo = repo;
         }
