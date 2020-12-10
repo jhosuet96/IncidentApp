@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IncidentApp.Model.Dto;
+﻿using IncidentApp.Model.Dto;
 using IncidentApp.Model.Model;
 using IncidentApp.Repository.GenericRepository;
 using IncidentApp.Service.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace IncidentApp.Controllers
 {
@@ -22,7 +20,7 @@ namespace IncidentApp.Controllers
         {
             _repo = repo;
             slaController = new SlaController(repo);
-            servicePrioridad = new ServicePrioridad();
+            servicePrioridad = new ServicePrioridad(repo);
         }
 
         [HttpGet]
@@ -30,11 +28,13 @@ namespace IncidentApp.Controllers
         //[EnableCors("AllowOrigin")] //Importante 3
         public IActionResult GetAll()
         {
-            var prioridad = _repo.prioridad.GetAll();
+            var prioridad = servicePrioridad.MapPrioridadList();
             return Ok(prioridad);
         }
 
         [HttpGet]
+        [Route("GetById/{id:int}")]
+        [EnableCors("AllowOrigin")]
         public IActionResult GetById(int id)
         {
             if (id > 0)
@@ -49,17 +49,20 @@ namespace IncidentApp.Controllers
         }
 
         [HttpPost]
-        [Route("AddPriorida")]
-        public IActionResult AddPrioridad(Prioridad prioridad)
+        [Route("AddPrioridad")]
+        [EnableCors("AllowOrigin")]
+        public IActionResult AddPrioridad(PrioridadDto prioridadDto)
         {
-            _repo.prioridad.Add(prioridad);
+            var isprioridad = servicePrioridad.MapPrioridadAdd(prioridadDto);
+            _repo.prioridad.Add(isprioridad);
             _repo.Save();
-            return Ok(prioridad);
+            return Ok(isprioridad);
         }
 
         [HttpPatch]
-        [Route("UpdatePriorida")]
-        public IActionResult UpdatePrioridad(PrioridadDto prioridadDto)
+        [Route("UpdatePrioridad")]
+        [EnableCors("AllowOrigin")]
+        public IActionResult UpdatePrioridad([FromBody] PrioridadDto prioridadDto)
         {
             var isSla = slaController.GetById(prioridadDto.SlaId);
             if (isSla != null)
@@ -82,13 +85,13 @@ namespace IncidentApp.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("DeletePrioridad/prioridadid/{prioridadid:int}/iduser/{iduser:int}")]
-        public IActionResult DeletePrioridad(int prioridadId, int idUser)
+        [HttpPatch]
+        [Route("DeletePrioridad")]
+        public IActionResult DeletePrioridad(PrioridadDto prioridadDto)
         {
-            if (prioridadId > 0)
+            if (prioridadDto.PrioridadId > 0)
             {
-                var isPrioridad = servicePrioridad.MapPrioridadDelete(prioridadId, idUser);
+                var isPrioridad = servicePrioridad.MapPrioridadDelete(prioridadDto);
                 _repo.prioridad.Update(isPrioridad);
                 _repo.Save();
                 return Ok(isPrioridad);

@@ -21,25 +21,39 @@ namespace IncidentApp.Service.Services
             _Sla.CantdadHoras = slaDto.CantdadHoras;
             _Sla.Estatus = slaDto.Estatus;
             _Sla.Borrado = slaDto.Borrado;
-            _Sla.FechaRegistro = _Sla.FechaRegistro;
+            _Sla.FechaRegistro = slaDto.FechaRegistro;
             _Sla.FechaModificacion = DateTime.Now;
-            _Sla.CreadoPor = _Sla.CreadoPor;
+            _Sla.CreadoPor = slaDto.CreadoPor;
             _Sla.ModificadoPor = slaDto.ModificadoPor;
-            _Sla.SlaId = _Sla.SlaId;
+            _Sla.SlaId = slaDto.SlaId;
             return _Sla;
         }
 
-        public Sla MapSlaDelete(int slaId, int idUser)
+        public Sla MapSlaDelete(SlaDto slaDto)
         {
-            //_Sla.Descripcion = slaDto.Descripcion;
-            //_Sla.CantdadHoras = slaDto.CantdadHoras;
-            _Sla.Estatus = Convert.ToString(Estatus.Inactivo);
+            _Sla.Descripcion = slaDto.Descripcion;
+            _Sla.CantdadHoras = slaDto.CantdadHoras;
+            _Sla.Estatus = "I";
             _Sla.Borrado = Convert.ToBoolean(Borrar.Borrado);
-            _Sla.FechaRegistro = _Sla.FechaRegistro;
+            _Sla.FechaRegistro = slaDto.FechaRegistro;
             _Sla.FechaModificacion = DateTime.Now;
-            _Sla.CreadoPor = _Sla.CreadoPor;
-            _Sla.ModificadoPor = idUser;
-            _Sla.SlaId = slaId;
+            _Sla.CreadoPor = slaDto.CreadoPor;
+            _Sla.ModificadoPor = slaDto.ModificadoPor;
+            _Sla.SlaId = slaDto.SlaId;
+            return _Sla;
+        }
+
+        public Sla MapSlaAdd(SlaDto slaDto)
+        {
+            _Sla.Descripcion = slaDto.Descripcion;
+            _Sla.CantdadHoras = slaDto.CantdadHoras;
+            _Sla.Estatus = slaDto.Estatus;
+            _Sla.Borrado = slaDto.Borrado;
+            _Sla.FechaRegistro = slaDto.FechaRegistro;
+            _Sla.FechaModificacion = DateTime.Now;
+            _Sla.CreadoPor = slaDto.CreadoPor;
+            _Sla.ModificadoPor = slaDto.CreadoPor;
+            //_Sla.SlaId = _Sla.SlaId;
             return _Sla;
         }
     }

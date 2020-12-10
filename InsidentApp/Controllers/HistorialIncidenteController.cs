@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace IncidentApp.Controllers
 {
-    public class HistorialIncidenteController : Controller
+    public class HistorialIncidenteController : ControllerBase
     {
         private IRepositoryWrapper _repo;
         ServiceHistorialIncidente serviceHistorialIncidente;

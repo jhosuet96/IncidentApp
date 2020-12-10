@@ -2,8 +2,10 @@
 using IncidentApp.Model.Model;
 using IncidentApp.Repository.GenericRepository;
 using IncidentApp.Service;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace IncidentApp.Controllers
 {
@@ -28,12 +30,14 @@ namespace IncidentApp.Controllers
         //[EnableCors("AllowOrigin")] //Importante 3
         public IActionResult GetAll()
         {
-            var puesto = _repo.puesto.GetAll();
+            var puesto = _repo.puesto.GetAll().Where(d => d.Borrado == false);
             return Ok(puesto);
         }
 
 
         [HttpGet]
+        [Route("GetById/{id:int}")]
+        [EnableCors("AllowOrigin")]
         public IActionResult GetById(int id)
         {
             if (id > 0)
@@ -49,11 +53,13 @@ namespace IncidentApp.Controllers
 
         [HttpPost]
         [Route("AddPuesto")]
-        public IActionResult AddPuesto(Puesto puesto)
+        public IActionResult AddPuesto(PuestoDto puestoDto)
         {
-            _repo.puesto.Add(puesto);
+            var ispuesto = servicePuesto.MapPuestoAdd(puestoDto);
+
+            _repo.puesto.Add(ispuesto);
             _repo.Save();
-            return Ok(puesto);
+            return Ok(ispuesto);
         }
 
         [HttpPatch]
@@ -82,12 +88,12 @@ namespace IncidentApp.Controllers
         }
 
         [HttpDelete]
-        [Route("DeletePuesto/puestoid/{puestoid:int}/usuarioid/{iduser:int}")]
-        public IActionResult DeletePuesto(int puestoId, int idUser)
+        [Route("DeletePuesto")]
+        public IActionResult DeletePuesto(PuestoDto puestoDto)
         {
-            if (puestoId > 0)
+            if (puestoDto.PuestoId > 0)
             {
-                var ispuesto = servicePuesto.MapPuestoDelete(puestoId, idUser);
+                var ispuesto = servicePuesto.MapPuestoDelete(puestoDto);
                 _repo.puesto.Update(ispuesto);
                 _repo.Save();
                 return Ok(ispuesto);

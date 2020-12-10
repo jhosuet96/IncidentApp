@@ -21,24 +21,38 @@ namespace IncidentApp.Service
             _Puesto.Estatus = puestoDto.Estatus;
             _Puesto.Borrado = puestoDto.Borrado;
             _Puesto.FechaModificacion= DateTime.Now;
-            _Puesto.FechaRegistro = _Puesto.FechaRegistro;
-            _Puesto.CreadoPor = _Puesto.CreadoPor;
+            _Puesto.FechaRegistro = puestoDto.FechaRegistro;
+            _Puesto.CreadoPor = puestoDto.CreadoPor;
             _Puesto.ModificadoPor = puestoDto.ModificadoPor;
-            _Puesto.PuestoId = _Puesto.PuestoId;
+            _Puesto.PuestoId = puestoDto.PuestoId;
             return _Puesto;
         }
-        public Puesto MapPuestoDelete(int Id, int idUser)
+        public Puesto MapPuestoDelete(PuestoDto puestoDto)
         {
-          //_Puesto.Nombre = puestoDto.Nombre;
-            _Puesto.DepartamentoId = _Puesto.DepartamentoId;
-            _Puesto.Estatus = Convert.ToString(Estatus.Inactivo);
+            _Puesto.Nombre = puestoDto.Nombre;
+            _Puesto.DepartamentoId = puestoDto.DepartamentoId;
+            _Puesto.Estatus = "I";
             _Puesto.Borrado = Convert.ToBoolean(Borrar.Borrado);
             _Puesto.FechaModificacion = DateTime.Now;
-            _Puesto.FechaRegistro = _Puesto.FechaRegistro;
-            _Puesto.CreadoPor = _Puesto.CreadoPor;
-            _Puesto.ModificadoPor = idUser;
-            _Puesto.PuestoId = Id;
+            _Puesto.FechaRegistro = puestoDto.FechaRegistro;
+            _Puesto.CreadoPor = puestoDto.CreadoPor;
+            _Puesto.ModificadoPor = puestoDto.ModificadoPor;
+            _Puesto.PuestoId = puestoDto.PuestoId;
             return _Puesto;
         }
-     }
+
+        public Puesto MapPuestoAdd(PuestoDto puestoDto)
+        {
+            _Puesto.Nombre = puestoDto.Nombre;
+            _Puesto.DepartamentoId = puestoDto.DepartamentoId;
+            _Puesto.Estatus = puestoDto.Estatus;
+            _Puesto.Borrado = puestoDto.Borrado;
+            _Puesto.FechaModificacion = DateTime.Now;
+            _Puesto.FechaRegistro = puestoDto.FechaRegistro;
+            _Puesto.CreadoPor = puestoDto.CreadoPor;
+            _Puesto.ModificadoPor = puestoDto.CreadoPor;
+           // _Puesto.PuestoId = _Puesto.PuestoId;
+            return _Puesto;
+        }
+    }
 }

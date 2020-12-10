@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IncidentApp.Model.Migrations
 {
-    public partial class Config_FluentApi_Model : Migration
+    public partial class config : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +13,7 @@ namespace IncidentApp.Model.Migrations
                 columns: table => new
                 {
                     IncidenteId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UsuarioReportaId = table.Column<int>(nullable: false),
                     UsuarioAsignadoId = table.Column<int>(nullable: false),
                     PrioridadId = table.Column<int>(nullable: false),
@@ -23,7 +24,7 @@ namespace IncidentApp.Model.Migrations
                     CoemntarioCierrre = table.Column<string>(maxLength: 500, nullable: true),
                     Estatus = table.Column<string>(maxLength: 2, nullable: false),
                     Borrado = table.Column<bool>(nullable: false, defaultValue: false),
-                    FechaRegistro = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 11, 2, 19, 16, 49, 215, DateTimeKind.Local).AddTicks(4287)),
+                    FechaRegistro = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 11, 29, 22, 12, 35, 483, DateTimeKind.Local)),
                     FechaModificacion = table.Column<DateTime>(nullable: false),
                     CreadoPor = table.Column<int>(nullable: false),
                     ModificadoPor = table.Column<int>(nullable: false)
@@ -34,11 +35,107 @@ namespace IncidentApp.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Puesto",
+                columns: table => new
+                {
+                    PuestoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DepartamentoId = table.Column<int>(nullable: false),
+                    Nombre = table.Column<string>(maxLength: 100, nullable: false),
+                    Estatus = table.Column<string>(maxLength: 2, nullable: false),
+                    Borrado = table.Column<bool>(nullable: false, defaultValue: false),
+                    FechaRegistro = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 11, 29, 22, 12, 35, 422, DateTimeKind.Local)),
+                    FechaModificacion = table.Column<DateTime>(nullable: false),
+                    CreadoPor = table.Column<int>(nullable: false),
+                    ModificadoPor = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Puesto", x => x.PuestoId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuario",
+                columns: table => new
+                {
+                    UsuarioId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    PuestoID = table.Column<int>(nullable: false),
+                    Nombre = table.Column<string>(maxLength: 100, nullable: false),
+                    Apellido = table.Column<string>(maxLength: 100, nullable: false),
+                    Cedula = table.Column<string>(maxLength: 11, nullable: false),
+                    Correo = table.Column<string>(maxLength: 50, nullable: false),
+                    Telefono = table.Column<string>(maxLength: 15, nullable: true),
+                    FechaNacimiento = table.Column<DateTime>(nullable: false),
+                    NombreUsuario = table.Column<string>(maxLength: 100, nullable: false),
+                    Contrasena = table.Column<string>(maxLength: 500, nullable: false),
+                    Estatus = table.Column<string>(maxLength: 2, nullable: false),
+                    Borrado = table.Column<bool>(nullable: false, defaultValue: false),
+                    FechaRegistro = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 11, 29, 22, 12, 35, 434, DateTimeKind.Local)),
+                    FechaModificacion = table.Column<DateTime>(nullable: false),
+                    CreadoPor = table.Column<int>(nullable: false),
+                    ModificadoPor = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuario", x => x.UsuarioId);
+                    table.ForeignKey(
+                        name: "FK_Usuario_Usuario_CreadoPor",
+                        column: x => x.CreadoPor,
+                        principalTable: "Usuario",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Usuario_Usuario_ModificadoPor",
+                        column: x => x.ModificadoPor,
+                        principalTable: "Usuario",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Usuario_Puesto_PuestoID",
+                        column: x => x.PuestoID,
+                        principalTable: "Puesto",
+                        principalColumn: "PuestoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Departamento",
+                columns: table => new
+                {
+                    DepartamentoId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(maxLength: 100, nullable: false),
+                    Estatus = table.Column<string>(maxLength: 2, nullable: false),
+                    Borrado = table.Column<bool>(nullable: false, defaultValue: false),
+                    FechaRegistro = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 11, 29, 22, 12, 35, 419, DateTimeKind.Local)),
+                    FechaModificacion = table.Column<DateTime>(nullable: false),
+                    CreadoPor = table.Column<int>(nullable: false),
+                    ModificadoPor = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Departamento", x => x.DepartamentoId);
+                    table.ForeignKey(
+                        name: "FK_Departamento_Usuario_CreadoPor",
+                        column: x => x.CreadoPor,
+                        principalTable: "Usuario",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Departamento_Usuario_ModificadoPor",
+                        column: x => x.ModificadoPor,
+                        principalTable: "Usuario",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "HistorialIncidente",
                 columns: table => new
                 {
                     HistorialIncidenteId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IncidenteId = table.Column<int>(nullable: false),
                     Comentario = table.Column<string>(nullable: true),
                     Estatus = table.Column<string>(nullable: true),
@@ -52,99 +149,23 @@ namespace IncidentApp.Model.Migrations
                 {
                     table.PrimaryKey("PK_HistorialIncidente", x => x.HistorialIncidenteId);
                     table.ForeignKey(
+                        name: "FK_HistorialIncidente_Usuario_CreadoPor",
+                        column: x => x.CreadoPor,
+                        principalTable: "Usuario",
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_HistorialIncidente_Incidente_IncidenteId",
                         column: x => x.IncidenteId,
                         principalTable: "Incidente",
                         principalColumn: "IncidenteId",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Usuario",
-                columns: table => new
-                {
-                    UsuarioId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    PuestoID = table.Column<int>(nullable: false),
-                    Nombre = table.Column<string>(maxLength: 100, nullable: false),
-                    Apellido = table.Column<string>(maxLength: 100, nullable: false),
-                    Cedula = table.Column<string>(maxLength: 11, nullable: false),
-                    Correo = table.Column<string>(maxLength: 50, nullable: false),
-                    Telefono = table.Column<string>(maxLength: 15, nullable: true),
-                    FechaNacimiento = table.Column<DateTime>(nullable: false),
-                    NombreUsuario = table.Column<string>(maxLength: 100, nullable: false),
-                    Contraseña = table.Column<string>(maxLength: 500, nullable: false),
-                    Estatus = table.Column<string>(maxLength: 2, nullable: false),
-                    Borrado = table.Column<bool>(nullable: false, defaultValue: false),
-                    FechaRegistro = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 11, 2, 19, 16, 49, 171, DateTimeKind.Local).AddTicks(4372)),
-                    FechaModificacion = table.Column<DateTime>(nullable: false),
-                    CreadoPor = table.Column<int>(nullable: false),
-                    ModificadoPor = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Usuario", x => x.UsuarioId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Departamento",
-                columns: table => new
-                {
-                    DepartamentoId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(maxLength: 100, nullable: false),
-                    Estatus = table.Column<string>(maxLength: 2, nullable: false),
-                    Borrado = table.Column<bool>(nullable: false, defaultValue: false),
-                    FechaRegistro = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 11, 2, 19, 16, 49, 164, DateTimeKind.Local).AddTicks(8880)),
-                    FechaModificacion = table.Column<DateTime>(nullable: false),
-                    CreadoPor = table.Column<int>(nullable: false),
-                    ModificadoPor = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Departamento", x => x.DepartamentoId);
                     table.ForeignKey(
-                        name: "FK_Departamento_Usuario_CreadoPor",
-                        column: x => x.CreadoPor,
-                        principalTable: "Usuario",
-                        principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Departamento_Usuario_ModificadoPor",
+                        name: "FK_HistorialIncidente_Usuario_ModificadoPor",
                         column: x => x.ModificadoPor,
                         principalTable: "Usuario",
-                        principalColumn: "UsuarioId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Puesto",
-                columns: table => new
-                {
-                    PuestoId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DepartamentoId = table.Column<int>(nullable: false),
-                    Nombre = table.Column<string>(maxLength: 100, nullable: false),
-                    Estatus = table.Column<string>(maxLength: 2, nullable: false),
-                    Borrado = table.Column<bool>(nullable: false, defaultValue: false),
-                    FechaRegistro = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 11, 2, 19, 16, 49, 166, DateTimeKind.Local).AddTicks(9695)),
-                    FechaModificacion = table.Column<DateTime>(nullable: false),
-                    CreadoPor = table.Column<int>(nullable: false),
-                    ModificadoPor = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Puesto", x => x.PuestoId);
-                    table.ForeignKey(
-                        name: "FK_Puesto_Usuario_CreadoPor",
-                        column: x => x.CreadoPor,
-                        principalTable: "Usuario",
                         principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Puesto_Usuario_ModificadoPor",
-                        column: x => x.ModificadoPor,
-                        principalTable: "Usuario",
-                        principalColumn: "UsuarioId");
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -152,12 +173,12 @@ namespace IncidentApp.Model.Migrations
                 columns: table => new
                 {
                     SlaId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Descripcion = table.Column<string>(maxLength: 200, nullable: false),
                     CantdadHoras = table.Column<int>(nullable: false),
                     Estatus = table.Column<string>(maxLength: 2, nullable: false),
                     Borrado = table.Column<bool>(nullable: false, defaultValue: false),
-                    FechaRegistro = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 11, 2, 19, 16, 49, 210, DateTimeKind.Local).AddTicks(1260)),
+                    FechaRegistro = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 11, 29, 22, 12, 35, 475, DateTimeKind.Local)),
                     FechaModificacion = table.Column<DateTime>(nullable: false),
                     CreadoPor = table.Column<int>(nullable: false),
                     ModificadoPor = table.Column<int>(nullable: false)
@@ -170,12 +191,13 @@ namespace IncidentApp.Model.Migrations
                         column: x => x.CreadoPor,
                         principalTable: "Usuario",
                         principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Sla_Usuario_ModificadoPor",
                         column: x => x.ModificadoPor,
                         principalTable: "Usuario",
-                        principalColumn: "UsuarioId");
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,12 +205,12 @@ namespace IncidentApp.Model.Migrations
                 columns: table => new
                 {
                     PrioridadId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     SlaId = table.Column<int>(nullable: false),
                     Nombre = table.Column<string>(maxLength: 100, nullable: false),
                     Estatus = table.Column<string>(maxLength: 2, nullable: false),
                     Borrado = table.Column<bool>(nullable: false, defaultValue: false),
-                    FechaRegistro = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 11, 2, 19, 16, 49, 211, DateTimeKind.Local).AddTicks(5695)),
+                    FechaRegistro = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(2020, 11, 29, 22, 12, 35, 478, DateTimeKind.Local)),
                     FechaModificacion = table.Column<DateTime>(nullable: false),
                     CreadoPor = table.Column<int>(nullable: false),
                     ModificadoPor = table.Column<int>(nullable: false)
@@ -201,17 +223,19 @@ namespace IncidentApp.Model.Migrations
                         column: x => x.CreadoPor,
                         principalTable: "Usuario",
                         principalColumn: "UsuarioId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Prioridad_Usuario_ModificadoPor",
                         column: x => x.ModificadoPor,
                         principalTable: "Usuario",
-                        principalColumn: "UsuarioId");
+                        principalColumn: "UsuarioId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Prioridad_Sla_SlaId",
                         column: x => x.SlaId,
                         principalTable: "Sla",
-                        principalColumn: "SlaId");
+                        principalColumn: "SlaId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -290,6 +314,11 @@ namespace IncidentApp.Model.Migrations
                 column: "CreadoPor");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Puesto_DepartamentoId",
+                table: "Puesto",
+                column: "DepartamentoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Puesto_ModificadoPor",
                 table: "Puesto",
                 column: "ModificadoPor");
@@ -305,6 +334,16 @@ namespace IncidentApp.Model.Migrations
                 column: "ModificadoPor");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Usuario_CreadoPor",
+                table: "Usuario",
+                column: "CreadoPor");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuario_ModificadoPor",
+                table: "Usuario",
+                column: "ModificadoPor");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Usuario_PuestoID",
                 table: "Usuario",
                 column: "PuestoID");
@@ -315,14 +354,15 @@ namespace IncidentApp.Model.Migrations
                 column: "CreadoPor",
                 principalTable: "Usuario",
                 principalColumn: "UsuarioId",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Incidente_Usuario_ModificadoPor",
                 table: "Incidente",
                 column: "ModificadoPor",
                 principalTable: "Usuario",
-                principalColumn: "UsuarioId");
+                principalColumn: "UsuarioId",
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Incidente_Usuario_UsuarioAsignadoId",
@@ -337,7 +377,8 @@ namespace IncidentApp.Model.Migrations
                 table: "Incidente",
                 column: "UsuarioReportaId",
                 principalTable: "Usuario",
-                principalColumn: "UsuarioId");
+                principalColumn: "UsuarioId",
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Incidente_Departamento_DepartamentoId",
@@ -356,31 +397,40 @@ namespace IncidentApp.Model.Migrations
                 onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_HistorialIncidente_Usuario_CreadoPor",
-                table: "HistorialIncidente",
+                name: "FK_Puesto_Usuario_CreadoPor",
+                table: "Puesto",
                 column: "CreadoPor",
                 principalTable: "Usuario",
                 principalColumn: "UsuarioId",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_HistorialIncidente_Usuario_ModificadoPor",
-                table: "HistorialIncidente",
+                name: "FK_Puesto_Usuario_ModificadoPor",
+                table: "Puesto",
                 column: "ModificadoPor",
                 principalTable: "Usuario",
-                principalColumn: "UsuarioId");
+                principalColumn: "UsuarioId",
+                onDelete: ReferentialAction.Cascade);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Usuario_Puesto_PuestoID",
-                table: "Usuario",
-                column: "PuestoID",
-                principalTable: "Puesto",
-                principalColumn: "PuestoId",
+                name: "FK_Puesto_Departamento_DepartamentoId",
+                table: "Puesto",
+                column: "DepartamentoId",
+                principalTable: "Departamento",
+                principalColumn: "DepartamentoId",
                 onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Departamento_Usuario_CreadoPor",
+                table: "Departamento");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Departamento_Usuario_ModificadoPor",
+                table: "Departamento");
+
             migrationBuilder.DropForeignKey(
                 name: "FK_Puesto_Usuario_CreadoPor",
                 table: "Puesto");
@@ -396,9 +446,6 @@ namespace IncidentApp.Model.Migrations
                 name: "Incidente");
 
             migrationBuilder.DropTable(
-                name: "Departamento");
-
-            migrationBuilder.DropTable(
                 name: "Prioridad");
 
             migrationBuilder.DropTable(
@@ -409,6 +456,9 @@ namespace IncidentApp.Model.Migrations
 
             migrationBuilder.DropTable(
                 name: "Puesto");
+
+            migrationBuilder.DropTable(
+                name: "Departamento");
         }
     }
 }

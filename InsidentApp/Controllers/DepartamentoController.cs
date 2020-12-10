@@ -4,6 +4,8 @@ using IncidentApp.Repository.GenericRepository;
 using IncidentApp.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
+using System.Linq;
 
 namespace IncidentApp.Controllers
 {
@@ -26,11 +28,13 @@ namespace IncidentApp.Controllers
         //[EnableCors("AllowOrigin")] //Importante 3
         public IActionResult GetAll()
         {
-            var departamento = _repo.departamento.GetAll();            
+            var departamento = _repo.departamento.GetAll().Where(d => d.Borrado == false);            
             return Ok( departamento );
         }
 
         [HttpGet]
+        [Route("GetById/{id:int}")]
+        [EnableCors("AllowOrigin")]
         public IActionResult GetById(int id)
         {
             if (id > 0)
@@ -45,21 +49,23 @@ namespace IncidentApp.Controllers
         }
 
         [HttpPost]
-        [Route("AddDepartment")]
-        public IActionResult AddDepartment(Departamento departamento)
+        [Route("AddDepartamento")]
+        public IActionResult AddDepartamento(DepartamentoDto departamentDto)
         {
-            _repo.departamento.Add(departamento);
+            var isdepartment = serviceDepartment.MapDepartamentoAdd(departamentDto);
+            _repo.departamento.Add(isdepartment);
             _repo.Save();
-            return Ok(departamento);
+            return Ok(isdepartment);
         }
 
         [HttpPatch]
-        [Route("UpdateDepartment")]
+        [Route("UpdateDepartamento")]
         public IActionResult UpdateDepartment(DepartamentoDto departamentDto)
         {
             if (departamentDto != null)
             {
                var isdepartment = serviceDepartment.MapDepartamentoUpdate(departamentDto);
+                isdepartment.DepartamentoId = departamentDto.DepartamentoId;
                 _repo.departamento.Update(isdepartment);
                 _repo.Save();
                 return Ok(isdepartment);
@@ -70,13 +76,13 @@ namespace IncidentApp.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("DeleteDepartment/departamentoid/{departamentoid:int}/iduser/{iduser:int}")]
-        public IActionResult DeleteDepartment(int departamentoId,int idUser)
+        [HttpPatch]
+        [Route("DeleteDepartmento")]
+        public IActionResult DeleteDepartmento(DepartamentoDto departamento)
         {
-            if (departamentoId > 0)
+            if (departamento.DepartamentoId > 0)
             {
-                var isdepartment = serviceDepartment.MapDepartamentoDelete(departamentoId, idUser);
+                var isdepartment = serviceDepartment.MapDepartamentoDelete(departamento);
                 _repo.departamento.Update(isdepartment);
                 _repo.Save();
                 return Ok(isdepartment);

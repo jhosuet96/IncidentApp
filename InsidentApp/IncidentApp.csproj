@@ -1,23 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0">
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\InsidentApp.Model\IncidentApp.Model.csproj" />
     <ProjectReference Include="..\InsidentApp.Repository\IncidentApp.Repository.csproj" />
     <ProjectReference Include="..\InsidentApp.Service\IncidentApp.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.HttpsPolicy">
+      <HintPath>..\..\..\..\..\..\..\.nuget\packages\microsoft.aspnetcore.httpspolicy\2.1.1\lib\netstandard2.0\Microsoft.AspNetCore.HttpsPolicy.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 

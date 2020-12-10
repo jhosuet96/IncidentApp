@@ -15,5 +15,7 @@ namespace AppNominas.Repository
         void Add(T entity);
         //void Delete(T entity);
         void Update(T entity);
+
+
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+
 
 namespace InsidentApp
 {
@@ -20,15 +20,10 @@ namespace InsidentApp
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
-            //services.AddDbContext<IncidentAppContext>(options =>
-            //{
-            //    options.UseSqlServer("Server=DESKTOP-2TE51VC;Database=IncidentApp;Trusted_Connection=True;MultipleActiveResultSets=true", b => b.MigrationsAssembly("InsidentApp"));
-            //});
-
+            services.AddMvcCore().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonFormatters();
+            
             //Importante 1
             services.AddCors(options =>
             {
@@ -47,24 +42,23 @@ namespace InsidentApp
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline. https://localhost:44368
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();//.UseHsts();
+            }
 
             app.UseHttpsRedirection();
+            app.UseCors("AllowOrigin");
+            app.UseMvc();
 
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            //Importante 2
         }
     }
 }

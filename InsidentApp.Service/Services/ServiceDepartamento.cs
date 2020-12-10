@@ -18,26 +18,48 @@ namespace IncidentApp.Service
             _Departamento.Nombre = departamentoDto.Nombre;
             _Departamento.Estatus = departamentoDto.Estatus;
             _Departamento.Borrado = departamentoDto.Borrado;
-            _Departamento.FechaRegistro = _Departamento.FechaRegistro;
+            _Departamento.FechaRegistro = departamentoDto.FechaRegistro;
             _Departamento.FechaModificacion = DateTime.Now;
-            _Departamento.CreadoPor = _Departamento.CreadoPor;
+            _Departamento.CreadoPor = departamentoDto.CreadoPor;
             _Departamento.ModificadoPor = departamentoDto.ModificadoPor;
-            _Departamento.DepartamentoId = _Departamento.DepartamentoId;
+            _Departamento.DepartamentoId = departamentoDto.DepartamentoId;
             return _Departamento;
         }
 
-        public Departamento MapDepartamentoDelete(int Id,int idUser)
+        public Departamento MapDepartamentoDelete(DepartamentoDto departamentoDto)
         {
-          //_Departamento.Nombre = _Departamento.Nombre;
-            _Departamento.Estatus = Convert.ToString(Estatus.Inactivo);
+            _Departamento.Nombre = departamentoDto.Nombre;
+            _Departamento.Estatus = "I";
             _Departamento.Borrado = Convert.ToBoolean(Borrar.Borrado);
-            _Departamento.FechaRegistro = _Departamento.FechaRegistro;
+            _Departamento.FechaRegistro = departamentoDto.FechaRegistro;
             _Departamento.FechaModificacion = DateTime.Now;
-            _Departamento.CreadoPor = _Departamento.CreadoPor;        
-            _Departamento.ModificadoPor = idUser;
-            _Departamento.DepartamentoId = Id;
+            _Departamento.CreadoPor = departamentoDto.CreadoPor;        
+            _Departamento.ModificadoPor = departamentoDto.ModificadoPor;
+            _Departamento.DepartamentoId = departamentoDto.DepartamentoId;
             return _Departamento;
         }
+
+        public Departamento MapDepartamentoAdd(DepartamentoDto departamentoDto)
+        {
+            _Departamento.Nombre = departamentoDto.Nombre;
+            _Departamento.Estatus = departamentoDto.Estatus;
+            _Departamento.Borrado = departamentoDto.Borrado;
+            _Departamento.FechaRegistro = departamentoDto.FechaRegistro;
+            _Departamento.FechaModificacion = DateTime.Now;
+            _Departamento.CreadoPor = departamentoDto.CreadoPor;
+            _Departamento.ModificadoPor = departamentoDto.CreadoPor;
+            //  _Departamento.DepartamentoId = departamentoDto.DepartamentoId;
+            return _Departamento;
+
+        }
+
+        //public class CountriesMapper : Profile
+        //{
+        //    public CountriesMapper()
+        //    {
+        //        CreateMap<Countries, CountriesDTO>().ReverseMap();
+        //    }
+        //}
 
     }
 }

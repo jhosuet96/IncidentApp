@@ -16,7 +16,7 @@ namespace IncidentApp.Model.Model
         public string Telefono { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public string NombreUsuario { get; set; }
-        public string Contraseña { get; set; }
+        public string Contrasena { get; set; }
         public string Estatus { get; set; }
         public bool Borrado { get; set; }
         public DateTime FechaRegistro { get; set; }

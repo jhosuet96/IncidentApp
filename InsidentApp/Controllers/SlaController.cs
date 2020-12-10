@@ -4,6 +4,8 @@ using IncidentApp.Model.Model;
 using IncidentApp.Model.Dto;
 using IncidentApp.Service.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
+using System.Linq;
 
 namespace IncidentApp.Controllers
 {
@@ -24,11 +26,13 @@ namespace IncidentApp.Controllers
         [Route("GetAllS")]
         public IActionResult GetAll()
         {
-            var sla = _repo.sla.GetAll();
+            var sla = _repo.sla.GetAll().Where(d => d.Borrado == false);
             return Ok(sla);
         }
 
         [HttpGet]
+        [Route("GetById/{id:int}")]
+        [EnableCors("AllowOrigin")]
         public IActionResult GetById(int id)
         {
             if (id>0)
@@ -44,11 +48,12 @@ namespace IncidentApp.Controllers
 
         [HttpPost]
         [Route("AddSla")]
-        public IActionResult AddSla(Sla sla)
+        public IActionResult AddSla(SlaDto slaDto)
         {
-            _repo.sla.Add(sla);
+            var issla = serviceSla.MapSlaAdd(slaDto);
+            _repo.sla.Add(issla);
             _repo.Save();
-            return Ok(sla);
+            return Ok(issla);
         }
 
         [HttpPatch]
@@ -69,12 +74,12 @@ namespace IncidentApp.Controllers
         }
 
         [HttpDelete]
-        [Route("DeleteSla/slaid/{slaid:int}/iduser/{iduser:int}")]
-        public IActionResult DeleteSla(int slaId, int idUser)
+        [Route("DeleteSla")]
+        public IActionResult DeleteSla(SlaDto slaDto)
         {
-            if (slaId > 0)
+            if (slaDto.SlaId > 0)
             {
-                var isla = serviceSla.MapSlaDelete(slaId,idUser);
+                var isla = serviceSla.MapSlaDelete(slaDto);
                 _repo.sla.Update(isla);
                 _repo.Save();
                 return Ok(isla);

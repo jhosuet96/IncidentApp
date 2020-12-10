@@ -1,4 +1,5 @@
-﻿using IncidentApp.Repository.GenericRepository;
+﻿using Microsoft.AspNetCore.Http;
+using IncidentApp.Repository.GenericRepository;
 using Microsoft.AspNetCore.Mvc;
 using IncidentApp.Service;
 using IncidentApp.Model.Model;
@@ -10,24 +11,24 @@ namespace IncidentApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsuarioController : ControllerBase
+    public class UserController : ControllerBase
     {
         private IRepositoryWrapper _repo;
         ServiceUsuario serviceUsuario;
         PuestoController puestoController;
-        public UsuarioController(IRepositoryWrapper repo)
+        public UserController(IRepositoryWrapper repo)
         {
             _repo = repo;
             serviceUsuario = new ServiceUsuario(repo);
             puestoController = new PuestoController(_repo);
         }
 
-        [EnableCors("AllowOrigin")]
         [HttpGet]
         [Route("GetAllU")]
+        [EnableCors("AllowOrigin")]
         public IActionResult GetAll()
         {
-            var usuario = serviceUsuario.MapUsuarioList();
+            var usuario = _repo.usuario.GetAll();
             return Ok(usuario);
         }
 
@@ -46,16 +47,23 @@ namespace IncidentApp.Controllers
                 return NotFound(id);
             }
         }
-     
+        [HttpGet]
+        [Route("getId/{id:int}")]
+        [EnableCors]
+        public IActionResult GetId(int id)
+        {
+            var usuario = _repo.usuario.GetByID(id);
+            return Ok(usuario);
+        }
+
 
         [HttpPost]
         [Route("AddUsuario")]
-        public IActionResult AddUsuario(UsuarioDto usuarioDto)
+        public IActionResult AddUsuario(Usuario usuario)
         {
-            var isusuario = serviceUsuario.MapUsuarioAdd(usuarioDto);
-            _repo.usuario.Add(isusuario);
+            _repo.usuario.Add(usuario);
             _repo.Save();
-            return Ok(isusuario);
+            return Ok(usuario);
         }
 
         [HttpPatch]
@@ -84,7 +92,7 @@ namespace IncidentApp.Controllers
 
         }
 
-        [HttpPatch]
+        [HttpDelete]
         [Route("DeleteUsuario")]
         public IActionResult DeleteUsuario(UsuarioDto usuarioDto)
         {
